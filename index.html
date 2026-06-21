@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Naisargik - এডমিন প্যানেল</title>
     
+    <!-- Dynamic Favicon -->
+    <link id="dynamic-favicon" rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23166534'/><text x='50' y='70' font-family='Arial' font-size='60' font-weight='bold' fill='white' text-anchor='middle'>N</text></svg>">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -24,6 +27,22 @@
                 }
             }
         }
+
+        // Instant Favicon & Loader Logo from localStorage to prevent flicker
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedShortLogo = localStorage.getItem('adminShortLogo');
+            if(savedShortLogo) {
+                const favicon = document.getElementById('dynamic-favicon');
+                if(favicon) favicon.href = savedShortLogo;
+                
+                const loaderShortLogo = document.getElementById('loader-short-logo');
+                if(loaderShortLogo) {
+                    loaderShortLogo.src = savedShortLogo;
+                    loaderShortLogo.classList.remove('hidden');
+                    document.querySelectorAll('.brand-initial').forEach(el => el.classList.add('hidden'));
+                }
+            }
+        });
     </script>
 
     <style>
@@ -59,6 +78,9 @@
 
     <div id="global-loader" class="fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center transition-opacity duration-300">
         <img src="" class="brand-logo hidden w-auto max-w-[200px] h-20 object-contain mb-4 animate-pulse" alt="Logo">
+        <!-- New Short Logo for Loader -->
+        <img id="loader-short-logo" src="" class="hidden w-16 h-16 object-contain mb-4 animate-bounce drop-shadow-lg rounded-xl" alt="Short Logo">
+        <!-- Default Initial 'N' -->
         <div class="brand-initial w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center font-bold text-3xl shadow-lg mb-4 animate-bounce">N</div>
         <div class="loader"></div>
         <p class="mt-4 text-primary font-medium">লোড হচ্ছে...</p>
@@ -399,27 +421,33 @@
                 </div>
             </div>
 
-            <!-- Mobile Navigation -->
+            <!-- Mobile Navigation with 6 Icons -->
             <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 flex justify-between px-1 pb-1 pt-1 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] overflow-x-auto">
-                <a href="#dashboard" onclick="window.switchTab('dashboard')" data-tab="dashboard" class="mobile-nav-link text-primary flex flex-col items-center justify-center min-w-[20%] py-1.5 transition-colors">
+                <a href="#dashboard" onclick="window.switchTab('dashboard')" data-tab="dashboard" class="mobile-nav-link text-primary flex flex-col items-center justify-center flex-1 py-1.5 transition-colors">
                     <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     <span class="text-[9px] font-bold">ড্যাশবোর্ড</span>
                 </a>
-                <a href="#products" onclick="window.switchTab('products')" data-tab="products" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center min-w-[20%] py-1.5 transition-colors">
+                <a href="#products" onclick="window.switchTab('products')" data-tab="products" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center flex-1 py-1.5 transition-colors">
                     <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
                     <span class="text-[9px] font-bold">পণ্য</span>
                 </a>
-                <a href="#orders" onclick="window.switchTab('orders')" data-tab="orders" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center min-w-[20%] py-1.5 transition-colors">
+                <a href="#orders" onclick="window.switchTab('orders')" data-tab="orders" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center flex-1 py-1.5 transition-colors">
                     <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
                     <span class="text-[9px] font-bold">অর্ডার</span>
                 </a>
-                <a href="#customers" onclick="window.switchTab('customers')" data-tab="customers" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center min-w-[20%] py-1.5 transition-colors">
+                <a href="#customers" onclick="window.switchTab('customers')" data-tab="customers" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center flex-1 py-1.5 transition-colors">
                     <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     <span class="text-[9px] font-bold">গ্রাহক</span>
                 </a>
-                <a href="#public-page" onclick="window.switchTab('public-page')" data-tab="public-page" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center min-w-[20%] py-1.5 transition-colors">
+                <!-- New Public Site View Link -->
+                <a href="#" target="_blank" id="mobile-shop-link-nav" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center flex-1 py-1.5 transition-colors">
+                    <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    <span class="text-[9px] font-bold">পাবলিক সাইট</span>
+                </a>
+                <!-- Editor Link -->
+                <a href="#public-page" onclick="window.switchTab('public-page')" data-tab="public-page" class="mobile-nav-link text-gray-400 hover:text-primary flex flex-col items-center justify-center flex-1 py-1.5 transition-colors">
                     <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                    <span class="text-[9px] font-bold">এডিটর</span>
+                    <span class="text-[9px] font-bold">এডিট</span>
                 </a>
             </nav>
 
@@ -434,9 +462,9 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
                     </div>
-                    <div class="p-6 space-y-4">
+                    <div class="p-6 space-y-4 max-h-[75vh] overflow-y-auto">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">লোগো আপলোড করুন</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">মেইন লোগো আপলোড করুন</label>
                             <div class="flex items-center gap-4">
                                 <img id="logo-preview" src="" class="hidden w-16 h-16 object-contain border border-gray-200 rounded-lg bg-gray-50 shrink-0">
                                 <div class="flex-1">
@@ -446,6 +474,20 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- New Short Logo Section -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">শর্ট লোগো (Favicon ও Loader এর জন্য)</label>
+                            <div class="flex items-center gap-4">
+                                <img id="short-logo-preview" src="" class="hidden w-12 h-12 object-contain border border-gray-200 rounded-lg bg-gray-50 shrink-0">
+                                <div class="flex-1">
+                                    <input type="file" id="setting-short-logo-file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-bold file:bg-emerald-50 file:text-primary hover:file:bg-emerald-100 transition-colors cursor-pointer outline-none">
+                                    <input type="hidden" id="setting-short-logo-url">
+                                    <div id="short-logo-upload-status" class="text-xs font-bold mt-1 hidden"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">ব্যানার আপলোড করুন (অপশনাল)</label>
                             <div class="flex items-center gap-4">
@@ -1367,24 +1409,57 @@
             onSnapshot(doc(db, "settings", "general"), (documentSnapshot) => {
                 if (documentSnapshot.exists()) {
                     const data = documentSnapshot.data();
+                    
+                    // Main Logo
                     if (data.logoUrl) {
                         document.getElementById('setting-logo-url').value = data.logoUrl;
                         const lp = document.getElementById('logo-preview');
                         if(lp) { lp.src = data.logoUrl; lp.classList.remove('hidden'); }
                         document.querySelectorAll('.brand-logo').forEach(img => { img.src = data.logoUrl; img.classList.remove('hidden'); });
-                        document.querySelectorAll('.brand-initial').forEach(el => { el.classList.add('hidden'); });
+                        // Only hide brand initial if no short logo is managing the loader
+                        if(!data.shortLogoUrl) {
+                            document.querySelectorAll('.brand-initial').forEach(el => { el.classList.add('hidden'); });
+                        }
                     } else hideLogos();
 
+                    // Short Logo
+                    if (data.shortLogoUrl) {
+                        document.getElementById('setting-short-logo-url').value = data.shortLogoUrl;
+                        const slp = document.getElementById('short-logo-preview');
+                        if(slp) { slp.src = data.shortLogoUrl; slp.classList.remove('hidden'); }
+
+                        // Update Favicon
+                        let favicon = document.getElementById('dynamic-favicon');
+                        if (favicon) { favicon.href = data.shortLogoUrl; }
+
+                        // Update Loader
+                        const loaderShortLogo = document.getElementById('loader-short-logo');
+                        if (loaderShortLogo) {
+                            loaderShortLogo.src = data.shortLogoUrl;
+                            loaderShortLogo.classList.remove('hidden');
+                        }
+                        // Hide initial N completely
+                        document.querySelectorAll('.brand-initial').forEach(el => el.classList.add('hidden'));
+
+                        // Save locally for faster loading next time
+                        localStorage.setItem('adminShortLogo', data.shortLogoUrl);
+                    }
+
+                    // Banner
                     if (data.bannerUrl) {
                         document.getElementById('setting-banner-url').value = data.bannerUrl;
                         const bp = document.getElementById('banner-preview');
                         if(bp) { bp.src = data.bannerUrl; bp.classList.remove('hidden'); }
                     }
                     
+                    // Shop Link Updates
                     const shopUrl = data.shopUrl || "https://www.naisargik.com";
                     document.getElementById('setting-shop-url').value = shopUrl;
                     document.getElementById('sidebar-shop-link').href = shopUrl;
+                    const mobileShopLink = document.getElementById('mobile-shop-link-nav');
+                    if(mobileShopLink) mobileShopLink.href = shopUrl;
 
+                    // Editor Link Updates
                     const editorUrl = data.editorUrl || "";
                     document.getElementById('setting-editor-url').value = editorUrl;
                     const editorBtn = document.getElementById('public-editor-link-btn');
@@ -1400,6 +1475,7 @@
                 }
             });
         }
+        
         function hideLogos(){
             document.querySelectorAll('.brand-logo').forEach(img => img.classList.add('hidden'));
             document.querySelectorAll('.brand-initial').forEach(el => el.classList.remove('hidden'));
@@ -1407,12 +1483,29 @@
 
         window.saveSettings = async function() {
             if(!auth.currentUser) return window.showNotification("আপনাকে লগইন করতে হবে", true);
+            
             const logoUrl = document.getElementById('setting-logo-url').value.trim();
+            const shortLogoUrl = document.getElementById('setting-short-logo-url').value.trim();
             const bannerUrl = document.getElementById('setting-banner-url').value.trim();
             const shopUrl = document.getElementById('setting-shop-url').value.trim();
             const editorUrl = document.getElementById('setting-editor-url').value.trim();
+            
             try {
-                await setDoc(doc(db, "settings", "general"), { logoUrl: logoUrl, bannerUrl: bannerUrl, shopUrl: shopUrl, editorUrl: editorUrl }, { merge: true });
+                await setDoc(doc(db, "settings", "general"), { 
+                    logoUrl: logoUrl, 
+                    shortLogoUrl: shortLogoUrl,
+                    bannerUrl: bannerUrl, 
+                    shopUrl: shopUrl, 
+                    editorUrl: editorUrl 
+                }, { merge: true });
+                
+                // Immediately save short logo locally to prevent flickering on reload
+                if(shortLogoUrl) {
+                    localStorage.setItem('adminShortLogo', shortLogoUrl);
+                } else {
+                    localStorage.removeItem('adminShortLogo');
+                }
+
                 window.showNotification("সেটিংস সেভ করা হয়েছে!");
                 window.closeModal('settings-modal');
             } catch (error) { window.showNotification("সমস্যা হয়েছে", true); }
@@ -1518,10 +1611,17 @@
             }
         };
 
+        // Main Logo Upload
         document.getElementById('setting-logo-file').addEventListener('change', async function(e) {
             await window.uploadToImgBB(e.target.files[0], document.getElementById('logo-upload-status'), document.getElementById('save-settings-btn'), document.getElementById('logo-preview'), document.getElementById('setting-logo-url'));
         });
 
+        // Short Logo Upload
+        document.getElementById('setting-short-logo-file').addEventListener('change', async function(e) {
+            await window.uploadToImgBB(e.target.files[0], document.getElementById('short-logo-upload-status'), document.getElementById('save-settings-btn'), document.getElementById('short-logo-preview'), document.getElementById('setting-short-logo-url'));
+        });
+
+        // Banner Upload
         document.getElementById('setting-banner-file').addEventListener('change', async function(e) {
             await window.uploadToImgBB(e.target.files[0], document.getElementById('banner-upload-status'), document.getElementById('save-settings-btn'), document.getElementById('banner-preview'), document.getElementById('setting-banner-url'));
         });
