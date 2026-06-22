@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Naisargik - এডমিন প্যানেল</title>
     
     <!-- Dynamic Favicon -->
@@ -150,10 +150,10 @@
     </div>
 
     <!-- Dashboard Main View -->
-    <div id="dashboard-view" class="hidden w-full h-full flex flex-col md:flex-row bg-gray-50">
+    <div id="dashboard-view" class="hidden w-full h-full flex flex-col md:flex-row bg-gray-50 overflow-hidden">
         
         <!-- Desktop Sidebar -->
-        <aside class="hidden md:flex w-64 bg-dark text-gray-300 flex-col transition-all duration-300 z-20 shadow-xl">
+        <aside class="hidden md:flex w-64 bg-dark text-gray-300 flex-col transition-all duration-300 z-20 shadow-xl flex-shrink-0">
             <div class="p-5 flex items-center justify-center border-b border-gray-700 bg-gray-900 min-h-[80px]">
                 <img src="" class="brand-logo hidden w-auto max-w-[200px] h-12 object-contain bg-white rounded-lg p-1" alt="Logo">
                 <div class="brand-initial w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-2xl shadow-lg">N</div>
@@ -200,9 +200,10 @@
             </div>
         </aside>
 
-        <main class="flex-1 flex flex-col h-screen overflow-hidden relative pb-16 md:pb-0 bg-gray-50"> 
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col h-screen overflow-hidden relative bg-gray-50"> 
             
-            <header id="admin-main-header" class="bg-white shadow-sm border-b border-gray-200 px-4 md:px-6 py-4 flex justify-between items-center z-10 transition-all">
+            <header id="admin-main-header" class="bg-white shadow-sm border-b border-gray-200 px-4 md:px-6 py-4 flex justify-between items-center z-10 transition-all flex-shrink-0">
                 <div class="flex items-center gap-3">
                     <img src="" class="brand-logo hidden w-auto max-w-[120px] h-8 object-contain md:hidden" alt="Logo">
                     <div class="brand-initial w-8 h-8 bg-primary text-white rounded-full flex md:hidden items-center justify-center font-bold text-sm shadow-sm">N</div>
@@ -219,8 +220,10 @@
                 </div>
             </header>
 
+            <!-- Scrollable content area with responsive padding-bottom to avoid footer overlap on mobile -->
             <div class="flex-1 overflow-y-auto relative" id="main-scroll-area">
-                <div id="admin-padding-wrapper" class="p-4 md:p-6 transition-all">
+                <!-- Added pb-28 for mobile to make sure content doesn't hide under fixed navigation -->
+                <div id="admin-padding-wrapper" class="p-4 md:p-6 pb-28 md:pb-6 transition-all">
                     
                     <!-- Dashboard Section (Advanced Analytics) -->
                     <div id="section-dashboard" class="page-section space-y-6 block">
@@ -326,19 +329,21 @@
                                 </button>
                             </div>
                             <div class="p-4 md:p-0">
-                                <table class="w-full text-left border-collapse">
-                                    <thead class="hidden md:table-header-group">
-                                        <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
-                                            <th class="p-4 font-medium">পণ্যের ছবি ও তথ্য</th>
-                                            <th class="p-4 font-medium">ক্যাটাগরি</th>
-                                            <th class="p-4 font-medium">মূল্য</th>
-                                            <th class="p-4 font-medium text-center">স্টক ও এসকেইউ</th>
-                                            <th class="p-4 font-medium text-right">অ্যাকশন</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="products-table-body" class="block md:table-row-group text-sm text-gray-700">
-                                    </tbody>
-                                </table>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left border-collapse">
+                                        <thead class="hidden md:table-header-group">
+                                            <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                                                <th class="p-4 font-medium">পণ্যের ছবি ও তথ্য</th>
+                                                <th class="p-4 font-medium">ক্যাটাগরি</th>
+                                                <th class="p-4 font-medium">মূল্য</th>
+                                                <th class="p-4 font-medium text-center">স্টক ও এসকেইউ</th>
+                                                <th class="p-4 font-medium text-right">অ্যাকশন</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="products-table-body" class="block md:table-row-group text-sm text-gray-700">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -366,20 +371,22 @@
                             <div class="p-4 border-b border-gray-100 bg-gray-50/50 hidden md:flex justify-between items-center rounded-t-2xl">
                                 <h2 class="font-bold text-gray-800" id="current-tab-title">অর্ডার তালিকা</h2>
                             </div>
-                            <table class="w-full text-left border-collapse">
-                                <thead class="hidden md:table-header-group">
-                                    <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
-                                        <th class="p-4 font-medium">অর্ডার আইডি ও তারিখ</th>
-                                        <th class="p-4 font-medium">গ্রাহক</th>
-                                        <th class="p-4 font-medium">মোট বিল</th>
-                                        <th class="p-4 font-medium">স্ট্যাটাস</th>
-                                        <th class="p-4 font-medium text-right">অ্যাকশন</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="orders-unified-table-body" class="block md:table-row-group text-sm text-gray-700">
-                                    <!-- Populated dynamically -->
-                                </tbody>
-                            </table>
+                            <div class="overflow-x-auto bg-white rounded-xl md:rounded-none">
+                                <table class="w-full text-left border-collapse">
+                                    <thead class="hidden md:table-header-group">
+                                        <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                                            <th class="p-4 font-medium">অর্ডার আইডি ও তারিখ</th>
+                                            <th class="p-4 font-medium">গ্রাহক</th>
+                                            <th class="p-4 font-medium">মোট বিল</th>
+                                            <th class="p-4 font-medium">স্ট্যাটাস</th>
+                                            <th class="p-4 font-medium text-right">অ্যাকশন</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orders-unified-table-body" class="block md:table-row-group text-sm text-gray-700">
+                                        <!-- Populated dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
                             <div id="no-orders-msg" class="hidden p-8 text-center text-gray-500 bg-white md:bg-transparent rounded-xl">
                                 <svg class="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
                                 এই সেকশনে কোনো অর্ডার নেই।
@@ -393,18 +400,20 @@
                             <div class="mb-4 md:p-6 md:mb-0 md:border-b border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                                 <h2 class="text-lg font-bold text-gray-800">গ্রাহক তালিকা</h2>
                             </div>
-                            <table class="w-full text-left border-collapse">
-                                <thead class="hidden md:table-header-group">
-                                    <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
-                                        <th class="p-4 font-medium">নাম</th>
-                                        <th class="p-4 font-medium">যোগাযোগ</th>
-                                        <th class="p-4 font-medium">ঠিকানা</th>
-                                        <th class="p-4 font-medium text-right">অ্যাকশন</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="customers-table-body" class="block md:table-row-group text-sm text-gray-700">
-                                </tbody>
-                            </table>
+                            <div class="overflow-x-auto bg-white rounded-xl md:rounded-none">
+                                <table class="w-full text-left border-collapse">
+                                    <thead class="hidden md:table-header-group">
+                                        <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                                            <th class="p-4 font-medium">নাম</th>
+                                            <th class="p-4 font-medium">যোগাযোগ</th>
+                                            <th class="p-4 font-medium">ঠিকানা</th>
+                                            <th class="p-4 font-medium text-right">অ্যাকশন</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="customers-table-body" class="block md:table-row-group text-sm text-gray-700">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -488,7 +497,7 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">ব্যানার আপলোড করুন (অপশনাল)</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">ব্যানার আপলোড করুন (অপショナル)</label>
                             <div class="flex items-center gap-4">
                                 <img id="banner-preview" src="" class="hidden w-24 h-12 object-cover border border-gray-200 rounded-lg bg-gray-50 shrink-0">
                                 <div class="flex-1">
@@ -855,7 +864,11 @@
         };
         const isToday = (dateString) => { const date = new Date(dateString); const today = new Date(); return date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear(); };
         const isThisMonth = (dateString) => { const date = new Date(dateString); const today = new Date(); return date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear(); };
-        const currency = (val) => new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(val);
+        const currency = (val) => {
+            const num = Number(val);
+            if (isNaN(num)) return '0';
+            return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(num);
+        };
 
         /* ======================== SPA Navigation Logic ======================== */
         window.switchTab = function(tabName, skipHistory = false) {
@@ -891,6 +904,10 @@
             if(tabName === 'customers') title = "গ্রাহক পরিচালনা";
             if(tabName === 'public-page') title = "পাবলিক পেইজ এডিটর";
             document.getElementById('header-title').innerText = title;
+
+            // Scroll back to top on tab switch
+            const scrollArea = document.getElementById('main-scroll-area');
+            if (scrollArea) scrollArea.scrollTop = 0;
         }
 
         window.goToOrdersTab = function(statusId) {
@@ -1240,42 +1257,64 @@
             });
         }
 
-        // Upgraded Packing Slip Generator
+        // Upgraded Packing Slip Generator - Fixed Safety Safeguards for PDF crash
         window.printPackingSlip = function() {
             if(!currentViewOrderId) return;
             const order = allOrdersList.find(o => o.id === currentViewOrderId);
             if(!order) return;
             
-            let itemsHtml = ''; let sl = 1; let subTotal = 0;
-            if(order.items) {
+            let itemsHtml = ''; 
+            let sl = 1; 
+            let subTotal = 0;
+            
+            if (order.items && Array.isArray(order.items)) {
                 order.items.forEach(item => {
-                    const lTotal = (item.price || 0) * (item.quantity || 1);
+                    const price = Number(item.price) || 0;
+                    const qty = Number(item.quantity) || 1;
+                    const lTotal = price * qty;
                     subTotal += lTotal;
+                    
+                    const itemNameSafe = (item.name || 'পণ্য').replace(/'/g, "\\'").replace(/"/g, '\\"');
+                    
                     itemsHtml += `
                         <tr style="border-bottom:1px solid #eee;">
                             <td style="padding:10px; text-align:center;">${sl++}</td>
-                            <td style="padding:10px;">${item.name}</td>
-                            <td style="padding:10px; text-align:center;">${item.quantity || 1}</td>
-                            <td style="padding:10px; text-align:right;">৳${currency(item.price || 0)}</td>
+                            <td style="padding:10px;">${itemNameSafe}</td>
+                            <td style="padding:10px; text-align:center;">${qty}</td>
+                            <td style="padding:10px; text-align:right;">৳${currency(price)}</td>
                             <td style="padding:10px; text-align:right; font-weight:bold;">৳${currency(lTotal)}</td>
                         </tr>
                     `;
                 });
             }
             
-            const deliveryCharge = order.deliveryCharge || 0;
+            const deliveryCharge = Number(order.deliveryCharge) || 0;
             const grandTotal = subTotal + deliveryCharge;
+            const orderIdSafe = (order.id || '').toUpperCase();
+            const customerNameSafe = (order.customerName || 'ক্রেতা').replace(/'/g, "\\'").replace(/"/g, '\\"');
+            const customerPhoneSafe = order.customerPhone || 'N/A';
+            const customerAddressSafe = (order.customerAddress || 'N/A').replace(/'/g, "\\'").replace(/"/g, '\\"');
+            const courierNameSafe = (order.courierName || 'Pending').replace(/'/g, "\\'").replace(/"/g, '\\"');
+            const trackingSafe = (order.trackingNumber || 'N/A').replace(/'/g, "\\'").replace(/"/g, '\\"');
+            
+            let dateStr = '---';
+            try {
+                dateStr = formatDate(order.createdAt || order.date || new Date().toISOString()).split(',')[0];
+            } catch(e) {
+                dateStr = new Date().toLocaleDateString('en-GB');
+            }
 
             const html = `
                 <html>
                 <head>
-                    <title>Invoice - #${order.id.substring(0,6).toUpperCase()}</title>
+                    <title>Invoice - #${orderIdSafe.substring(0,6)}</title>
+                    <meta charset="UTF-8">
                     <style>
                         body { font-family: 'Arial', sans-serif; color:#333; padding: 30px; font-size: 14px; max-width: 800px; margin: auto;}
                         .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #166534; padding-bottom: 15px; margin-bottom: 25px;}
                         .title { font-size: 28px; font-weight: 900; color: #166534; margin:0; text-transform: uppercase; letter-spacing: 1px;}
-                        .invoice-badge { background: #166534; color: white; padding: 5px 15px; border-radius: 4px; font-size: 18px; font-weight: bold; }
-                        .info-box { border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; margin-bottom: 25px; width:48%; background: #f9fafb;}
+                        .invoice-badge { background: #166534; color: white; padding: 5px 15px; border-radius: 4px; font-size: 18px; font-weight: bold; display: inline-block; }
+                        .info-box { border: 1px solid #e5e7eb; padding: 15px; border-radius: 8px; margin-bottom: 25px; width:48%; background: #f9fafb; box-sizing: border-box;}
                         .flex-row { display: flex; justify-content: space-between; gap: 20px;}
                         table { width: 100%; border-collapse: collapse; margin-bottom: 25px;}
                         th { background: #166534; color: white; padding: 12px; text-align: left; }
@@ -1288,30 +1327,30 @@
                         .clear { clear: both; }
                     </style>
                 </head>
-                <body onload="window.print(); window.close();">
+                <body>
                     <div class="header">
                         <div>
                             <h1 class="title">Naisargik</h1>
                             <p style="margin:5px 0 0 0; color: #4b5563;">Premium Organic Products</p>
                         </div>
                         <div style="text-align:right;">
-                            <div class="invoice-badge">INVOICE</div><br>
-                            <strong>Order ID:</strong> #${order.id.toUpperCase()}<br>
-                            <strong>Date:</strong> ${formatDate(order.createdAt || order.date).split(',')[0]}
+                            <div class="invoice-badge">INVOICE</div><br><br>
+                            <strong>Order ID:</strong> #${orderIdSafe}<br>
+                            <strong>Date:</strong> ${dateStr}
                         </div>
                     </div>
                     
                     <div class="flex-row">
                         <div class="info-box">
                             <h3 style="margin-top:0; color:#166534; border-bottom:1px solid #ddd; padding-bottom:5px;">Bill To / Ship To:</h3>
-                            <strong style="font-size:16px;">${order.customerName}</strong><br><br>
-                            <strong>Phone:</strong> ${order.customerPhone}<br>
-                            <strong>Address:</strong> ${order.customerAddress}
+                            <strong style="font-size:16px;">${customerNameSafe}</strong><br><br>
+                            <strong>Phone:</strong> ${customerPhoneSafe}<br>
+                            <strong>Address:</strong> ${customerAddressSafe}
                         </div>
                         <div class="info-box">
                             <h3 style="margin-top:0; color:#166534; border-bottom:1px solid #ddd; padding-bottom:5px;">Shipping Details:</h3>
-                            <strong>Courier:</strong> ${order.courierName || 'Pending'}<br>
-                            <strong>Tracking ID:</strong> ${order.trackingNumber || 'N/A'}<br>
+                            <strong>Courier:</strong> ${courierNameSafe}<br>
+                            <strong>Tracking ID:</strong> ${trackingSafe}<br>
                             <strong>Payment Method:</strong> Cash on Delivery
                         </div>
                     </div>
@@ -1340,8 +1379,8 @@
                                 <td style="text-align:right;">৳${currency(deliveryCharge)}</td>
                             </tr>
                             <tr>
-                                <td style="text-align:right;" class="grand-total">Grand Total:</td>
-                                <td style="text-align:right;" class="grand-total">৳${currency(grandTotal)}</td>
+                                <td style="text-align:right;" class="grand-total font-bold">Grand Total:</td>
+                                <td style="text-align:right;" class="grand-total font-bold">৳${currency(grandTotal)}</td>
                             </tr>
                         </table>
                     </div>
@@ -1351,12 +1390,31 @@
                         <strong>Thank you for choosing Naisargik!</strong><br>
                         If you have any questions about this invoice, please contact us at info@naisargik.com or visit www.naisargik.com
                     </div>
+                    <script>
+                        window.onload = function() {
+                            setTimeout(function() {
+                                window.print();
+                            }, 500);
+                        }
+                    <\/script>
                 </body>
                 </html>
             `;
-            const win = window.open('', '_blank');
-            win.document.write(html);
-            win.document.close();
+            
+            // Pop-up blocker friendly window opening
+            try {
+                const win = window.open('', '_blank');
+                if (win) {
+                    win.document.open();
+                    win.document.write(html);
+                    win.document.close();
+                } else {
+                    window.showNotification("Pop-up blocked! Please allow popups for Naisargik Admin Panel.", true);
+                }
+            } catch(e) {
+                console.error(e);
+                window.showNotification("পিডিএফ তৈরি করতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।", true);
+            }
         }
 
         /* ======================== Manual Order Flow ======================== */
