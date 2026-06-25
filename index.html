@@ -1471,13 +1471,23 @@
                 <html>
                 <head>
                     <title>Invoice - #${order.id.substring(0,6).toUpperCase()}</title>
-                    <meta name="viewport" content="width=800, initial-scale=1.0">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <style>
                         @media print {
                             @page { size: A4 portrait; margin: 10mm; }
-                            body { width: 800px !important; margin: 0 auto !important; }
+                            body { 
+                                width: 800px !important; 
+                                min-width: 800px !important; 
+                                margin: 0 auto !important; 
+                                padding: 0 !important; 
+                            }
+                            * {
+                                -webkit-print-color-adjust: exact !important;
+                                print-color-adjust: exact !important;
+                                color-adjust: exact !important;
+                            }
                         }
-                        body { font-family: 'Arial', sans-serif; color:#333; padding: 20px; font-size: 14px; max-width: 800px; margin: auto;}
+                        body { font-family: 'Arial', sans-serif; color:#333; padding: 20px; font-size: 14px; width: 800px; max-width: 800px; margin: auto; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;}
                         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #166534; padding-bottom: 20px; margin-bottom: 25px;}
                         .title { font-size: 32px; font-weight: 900; color: #166534; margin:0; text-transform: uppercase; letter-spacing: 1px;}
                         .invoice-badge { background: #166534; color: white; padding: 6px 18px; border-radius: 6px; font-size: 20px; font-weight: bold; display: inline-block; }
@@ -1572,7 +1582,17 @@
                 </html>
             `;
             const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
+            
+            // মোবাইল ব্রাউজারে প্রিন্ট বাগ ফিক্স করার জন্য display: none এর বদলে fixed পজিশন ব্যবহার করা হলো
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '100vw';
+            iframe.style.height = '100vh';
+            iframe.style.opacity = '0';
+            iframe.style.pointerEvents = 'none';
+            iframe.style.zIndex = '-9999';
+            
             document.body.appendChild(iframe);
 
             iframe.contentWindow.document.open();
