@@ -1498,7 +1498,7 @@
                         .clear { clear: both; }
                     </style>
                 </head>
-                <body onload="setTimeout(function(){ window.print(); window.close(); }, 500);">
+                <body>
                     <div class="header">
                         <div>
                             ${logoHtml}
@@ -1571,9 +1571,22 @@
                 </body>
                 </html>
             `;
-            const win = window.open('', '_blank');
-            win.document.write(html);
-            win.document.close();
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            iframe.contentWindow.document.open();
+            iframe.contentWindow.document.write(html);
+            iframe.contentWindow.document.close();
+
+            setTimeout(() => {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+                
+                setTimeout(() => {
+                    document.body.removeChild(iframe);
+                }, 2000);
+            }, 500);
         }
 
         /* ======================== Manual Order Flow ======================== */
